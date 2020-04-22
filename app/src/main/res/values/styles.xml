@@ -1,0 +1,90 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="android:textColorSecondary">@color/textColorSecondary</item>
+
+        <item name="android:background">@color/background</item>
+
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+
+        <item name="preferenceTheme">
+            @style/AppPreferenceTheme
+        </item>
+
+        <item name="shapeAppearanceMediumComponent">
+            @style/ShapeAppearance.AppTheme.MediumComponent
+        </item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.AppTheme.SmallComponent
+        </item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.AppTheme.LargeComponent
+        </item>
+    </style>
+
+    <style name="ShapeAppearance.AppTheme.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/_16sdp</item>
+    </style>
+
+    <style name="ShapeAppearance.AppTheme.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/_16sdp</item>
+    </style>
+
+    <style name="ShapeAppearance.AppTheme.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/_16sdp</item>
+    </style>
+
+
+    <style name="NotebookCardStyle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">10%</item>
+        <item name="cornerSizeBottomRight">10%</item>
+    </style>
+
+    <style name="EditorButton">
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/_10ssp</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:layout_width">@dimen/_35sdp</item>
+        <item name="android:layout_height">@dimen/_35sdp</item>
+        <item name="android:padding">@dimen/_4sdp</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="tint">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="DialogStyle" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:background">#00000000</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.AppTheme.Dialog.Rounded
+        </item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.AppTheme.Dialog.Rounded" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <!-- Custom Preference Theme -->
+    <style name="AppPreferenceTheme" parent="@style/PreferenceThemeOverlay.v14.Material">
+        <item name="preferenceFragmentCompatStyle">
+            @style/AppPreferenceFragmentCompatStyle
+        </item>
+    </style>
+
+    <!-- Custom Style for PreferenceFragmentCompat -->
+    <style name="AppPreferenceFragmentCompatStyle" parent="@style/PreferenceFragment.Material">
+        <item name="android:layout">@layout/fragment_setting</item>
+    </style>
+</resources>

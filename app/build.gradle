@@ -1,0 +1,73 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "com.journal"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    androidExtensions {
+        experimental = true
+    }
+
+    kotlinOptions {
+        jvmTarget = Config.javaVersion
+    }
+
+    dataBinding {
+        enabled true
+    }
+}
+
+dependencies {
+    implementation Deps.kotlin_stdlib
+
+    implementation Deps.appcompat
+    implementation Deps.core_ktx
+    implementation Deps.constraintlayout
+    implementation Deps.material
+
+    implementation Deps.ssp
+    implementation Deps.sdp
+
+    implementation Deps.fragnav
+    implementation Deps.fragment
+
+    implementation 'com.github.irshulx:laser-native-editor:3.0.3'
+    implementation 'com.github.devsideal:VectorChildFinder:1.0.0'
+    implementation 'androidx.preference:preference:1.1.0'
+
+    implementation Deps.room_runtime
+    implementation Deps.room_ktx
+    kapt Deps.room_compiler
+
+    implementation Deps.junit
+    implementation Deps.junit_ext
+    implementation Deps.espresso
+}

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="com.github.irshulx.models.EditorTextStyle" />
+
+        <variable
+            name="viewModel"
+            type="com.journal.editor.RichEditorViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="?attr/colorSurface"
+            android:elevation="@dimen/_1sdp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorSurface">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/back"
+                    android:layout_width="?actionBarSize"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:scaleType="centerInside"
+                    android:tint="?android:attr/textColorPrimary"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:srcCompat="@drawable/ic_back" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:background="?attr/colorSurface"
+                    android:gravity="center"
+                    android:text="@string/save"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:textAllCaps="true" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_margin="@dimen/_8sdp"
+            android:hint="@string/title"
+            android:text="@={viewModel.title}"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        </androidx.appcompat.widget.AppCompatEditText>
+
+        <com.github.irshulx.Editor
+            android:id="@+id/editor"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:padding="@dimen/_10sdp"
+            app:auto_focus="true"
+            app:layout_constraintBottom_toTopOf="@id/bottom_app_bar"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:placeholder="Start writing here..."
+            app:render_type="Editor" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <HorizontalScrollView
+                android:id="@+id/bottom_menu"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:background="?colorSurface"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?colorSurface"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/h1"
+                        style="@style/EditorButton"
+                        android:onClick="@{(v)-> viewModel.updateStyle(EditorTextStyle.H1)}"
+                        android:text="H1"
+                        android:visibility="gone" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/h2"
+                        style="@style/EditorButton"
+                        android:onClick="@{(v)-> viewModel.updateStyle(EditorTextStyle.H2)}"
+                        android:text="H2"
+                        android:visibility="gone" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/h3"
+                        style="@style/EditorButton"
+                        android:onClick="@{(v)-> viewModel.updateStyle(EditorTextStyle.H3)}"
+                        android:text="H3"
+                        android:visibility="gone" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/b"
+                        style="@style/EditorButton"
+                        android:onClick="@{(v)-> viewModel.updateStyle(EditorTextStyle.BOLD)}"
+                        android:text="B" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/italic"
+                        style="@style/EditorButton"
+                        android:onClick="@{(v)-> viewModel.updateStyle(EditorTextStyle.ITALIC)}"
+                        android:src="@drawable/ic_italic" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/underline"
+                        style="@style/EditorButton"
+                        android:onClick="@{(v)-> viewModel.updateStyle(EditorTextStyle.___UnderLined)}"
+                        android:src="@drawable/ic_underline" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/bullet_list"
+                        style="@style/EditorButton"
+                        android:src="@drawable/ic_bullet_list" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/link"
+                        style="@style/EditorButton"
+                        android:src="@drawable/ic_link" />
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
