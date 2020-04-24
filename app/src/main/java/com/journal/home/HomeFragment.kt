@@ -7,18 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.journal.R
 import com.journal.common.GenericRVAdapter
 import com.journal.database.entities.NoteInfo
 import com.journal.database.entities.Notebook
 import com.journal.databinding.FragmentHomeBinding
-import com.journal.editor.RichEditorFragment
-import com.journal.notebook.NewNotebook
-import com.journal.notebook.details.NotebookFragment
-import com.journal.setting.SettingFragment
 import com.journal.utils.NOTEBOOK_ID
-import com.journal.utils.requireNavigation
-import com.ncapdevi.fragnav.FragNavTransactionOptions
 
 class HomeFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListener {
     private lateinit var binding: FragmentHomeBinding
@@ -55,44 +50,36 @@ class HomeFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListener {
     }
 
     private fun initListeners() {
+        binding.toolbar.setOnMenuItemClickListener {
+            return@setOnMenuItemClickListener onOptionsItemSelected(it.itemId)
+        }
+
         binding.add.setOnClickListener {
-            requireNavigation()?.pushFragment(RichEditorFragment.newInstance())
+            findNavController().navigate(R.id.home_to_editor)
         }
 
         binding.addNotebook.setOnClickListener {
-            requireNavigation()?.showDialogFragment(NewNotebook.newInstance())
+            findNavController().navigate(R.id.home_to_new_notebook)
         }
 
-        binding.menu.setOnClickListener {
-            requireNavigation()?.pushFragment(
-                SettingFragment.newInstance(),
-                FragNavTransactionOptions
-                    .newBuilder()
-                    .apply {
-                        enterAnimation = R.anim.slide_in_left
-                        exitAnimation = R.anim.slide_out_left
-                        popEnterAnimation = R.anim.slide_in_right
-                        popExitAnimation = R.anim.slide_out_right
-                    }.build()
-            )
-        }
     }
 
     override fun onClick(view: View, position: Int) {
         when (view.id) {
             R.id.notebook -> {
                 viewModel.getNotebook(position)?.let {
-                    requireNavigation()?.pushFragment(NotebookFragment.newInstance(Bundle().apply {
+                    findNavController().navigate(R.id.home_to_notebook, Bundle().apply {
                         putLong(NOTEBOOK_ID, it.notebookId ?: 0)
-                    }), null)
+                    })
                 }
             }
         }
     }
 
-    companion object {
-        fun newInstance(bundle: Bundle? = Bundle()) = HomeFragment().apply {
-            arguments = bundle
+    private fun onOptionsItemSelected(itemId: Int): Boolean {
+        when (itemId) {
+            R.id.setting -> findNavController().navigate(R.id.goto_setting)
         }
+        return true
     }
 }

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_nav_graph"
+    app:startDestination="@id/home">
+
+    <fragment
+        android:id="@+id/home"
+        android:name="com.journal.home.HomeFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/goto_setting"
+            app:destination="@id/setting"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/home_to_editor"
+            app:destination="@id/editor" />
+
+        <action
+            android:id="@+id/home_to_new_notebook"
+            app:destination="@id/new_notebook" />
+
+        <action
+            android:id="@+id/home_to_notebook"
+            app:destination="@id/notebook" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/setting"
+        android:name="com.journal.setting.SettingFragment"
+        android:label="@string/app_name" />
+
+    <fragment
+        android:id="@+id/editor"
+        android:name="com.journal.editor.RichEditorFragment"
+        tools:layout="@layout/fragment_rich_editor" />
+
+    <fragment
+        android:id="@+id/notebook"
+        android:name="com.journal.notebook.details.NotebookFragment"
+        tools:layout="@layout/fragment_notebook">
+
+        <action
+            android:id="@+id/action_notebook_to_editor"
+            app:destination="@id/editor" />
+
+        <action
+            android:id="@+id/action_notebook_to_edit"
+            app:destination="@id/new_notebook" />
+
+    </fragment>
+
+    <dialog
+        android:id="@+id/new_notebook"
+        android:name="com.journal.notebook.NewNotebook"
+        tools:layout="@layout/fragment_new_notebook" />
+
+</navigation>

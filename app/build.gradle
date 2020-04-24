@@ -48,7 +48,6 @@ android {
 dependencies {
     implementation Deps.kotlin_stdlib
 
-    implementation Deps.appcompat
     implementation Deps.core_ktx
     implementation Deps.constraintlayout
     implementation Deps.material
@@ -56,12 +55,14 @@ dependencies {
     implementation Deps.ssp
     implementation Deps.sdp
 
-    implementation Deps.fragnav
     implementation Deps.fragment
+
+    implementation Deps.navigation
+    implementation Deps.navigation_ui
 
     implementation 'com.github.irshulx:laser-native-editor:3.0.3'
     implementation 'com.github.devsideal:VectorChildFinder:1.0.0'
-    implementation 'androidx.preference:preference:1.1.0'
+    implementation 'androidx.preference:preference:1.1.1'
 
     implementation Deps.room_runtime
     implementation Deps.room_ktx

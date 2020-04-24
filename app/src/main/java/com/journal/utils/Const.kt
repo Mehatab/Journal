@@ -1,6 +1,6 @@
 package com.journal.utils
 
-const val NOTEBOOK_ID = "NOTEBOOK_ID"
+const val NOTEBOOK_ID = "notebook_id"
 
 
 const val THEME = "theme"

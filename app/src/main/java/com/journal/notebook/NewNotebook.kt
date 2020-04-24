@@ -64,12 +64,4 @@ class NewNotebook : BottomSheetDialogFragment(), GenericRVAdapter.OnListItemView
             viewModel.notebookId.postValue(it.getLong(NOTEBOOK_ID))
         }
     }
-
-    override fun getTheme() = R.style.DialogStyle
-
-    companion object {
-        fun newInstance(bundle: Bundle? = Bundle()) = NewNotebook().apply {
-            arguments = bundle
-        }
-    }
 }

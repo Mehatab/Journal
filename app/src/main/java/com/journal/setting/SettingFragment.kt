@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceFragmentCompat
 import com.journal.R
 import com.journal.databinding.FragmentSettingBinding
@@ -37,8 +38,8 @@ class SettingFragment : PreferenceFragmentCompat(),
     }
 
     private fun initListeners() {
-        binding?.back?.setOnClickListener {
-            requireActivity().onBackPressed()
+        binding?.toolbar?.setNavigationOnClickListener {
+            findNavController().navigateUp()
         }
     }
 

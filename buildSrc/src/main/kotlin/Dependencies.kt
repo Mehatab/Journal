@@ -15,7 +15,6 @@ object Versions {
     val material = "1.2.0-alpha04"
     val constraintlayout = "2.0.0-beta4"
     val fragment = "1.3.0-alpha03"
-    val appcompat = "1.1.0"
     val core_ktx = "1.2.0"
     val kotlin_stdlib = "1.3.50"
     val junit = "4.12"
@@ -33,14 +32,13 @@ object Versions {
     val room_ktx = "2.2.3"
     val play_services = "18.3.0"
     val pageindicator = "0.2.8"
+    val nav_version = "2.2.1"
 }
 
 object Deps {
     //UI
     val material = "com.google.android.material:material:${Versions.material}"
     val constraintlayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintlayout}"
-
-    val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
 
     val fragment = "androidx.fragment:fragment-ktx:${Versions.fragment}"
 
@@ -72,4 +70,8 @@ object Deps {
     val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
     val coroutines_android =
         "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
+
+    val navigation = "androidx.navigation:navigation-fragment-ktx:${Versions.nav_version}"
+    val navigation_ui = "androidx.navigation:navigation-ui-ktx:${Versions.nav_version}"
+
 }

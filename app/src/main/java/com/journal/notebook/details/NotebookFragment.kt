@@ -7,14 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.journal.R
 import com.journal.common.GenericRVAdapter
 import com.journal.database.entities.Note
 import com.journal.databinding.FragmentNotebookBinding
-import com.journal.editor.RichEditorFragment
-import com.journal.notebook.NewNotebook
 import com.journal.utils.NOTEBOOK_ID
-import com.journal.utils.requireNavigation
 
 class NotebookFragment : Fragment() {
     private lateinit var binding: FragmentNotebookBinding
@@ -50,25 +48,29 @@ class NotebookFragment : Fragment() {
         })
 
         binding.add.setOnClickListener {
-            requireNavigation()?.pushFragment(RichEditorFragment.newInstance(Bundle().apply {
+            findNavController().navigate(R.id.action_notebook_to_editor, Bundle().apply {
                 putLong(NOTEBOOK_ID, viewModel.notebookId.value ?: 0)
-            }))
+            })
         }
 
-        binding.back.setOnClickListener {
-            requireActivity().onBackPressed()
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
         }
 
-        binding.edit.setOnClickListener {
-            requireNavigation()?.showDialogFragment(NewNotebook.newInstance(Bundle().apply {
-                putLong(NOTEBOOK_ID, viewModel.notebookId.value ?: 0)
-            }))
+        binding.toolbar.setOnMenuItemClickListener {
+            return@setOnMenuItemClickListener onOptionsItemSelected(it.itemId)
         }
     }
 
-    companion object {
-        fun newInstance(bundle: Bundle? = Bundle()) = NotebookFragment().apply {
-            arguments = bundle
+
+    private fun onOptionsItemSelected(itemId: Int): Boolean {
+        when (itemId) {
+            R.id.edit -> {
+                findNavController().navigate(R.id.action_notebook_to_edit, Bundle().apply {
+                    putLong(NOTEBOOK_ID, viewModel.notebookId.value ?: 0)
+                })
+            }
         }
+        return true
     }
 }
