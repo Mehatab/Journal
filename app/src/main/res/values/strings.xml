@@ -6,7 +6,6 @@
     <string name="title">Title</string>
     <string name="notes">Notes</string>
     <string name="save">Save</string>
-    <string name="editor_font_color">#000000</string>
     <string name="theme">Theme</string>
 
     <string name="system">-1</string>

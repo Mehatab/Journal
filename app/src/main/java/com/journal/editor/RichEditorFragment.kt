@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.journal.R
 import com.journal.databinding.FragmentRichEditorBinding
 import com.journal.utils.NOTEBOOK_ID
 
@@ -35,7 +34,7 @@ class RichEditorFragment : Fragment() {
     }
 
     private fun initListener() {
-        binding.editor.setEditorTextColor(getString(R.string.editor_font_color))
+        // binding.editor.setEditorTextColor(getString(R.string.editor_font_color))
 
         binding.editor.render()
 
