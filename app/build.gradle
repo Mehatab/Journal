@@ -4,8 +4,8 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion Config.compileSdk
+    buildToolsVersion Config.buildTools
 
     defaultConfig {
         applicationId "com.journal"
@@ -46,6 +46,8 @@ android {
 }
 
 dependencies {
+    implementation project(path: ':editor')
+
     implementation Deps.kotlin_stdlib
 
     implementation Deps.core_ktx
@@ -60,13 +62,14 @@ dependencies {
     implementation Deps.navigation
     implementation Deps.navigation_ui
 
-    implementation 'com.github.irshulx:laser-native-editor:3.0.3'
-    implementation 'com.github.devsideal:VectorChildFinder:1.0.0'
-    implementation 'androidx.preference:preference:1.1.1'
+    implementation Deps.preference
+    implementation Deps.vectorchildfinder
 
     implementation Deps.room_runtime
     implementation Deps.room_ktx
     kapt Deps.room_compiler
+
+    implementation "ru.noties.markwon:core:3.0.0"
 
     implementation Deps.junit
     implementation Deps.junit_ext

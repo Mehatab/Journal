@@ -2,10 +2,7 @@ package com.journal.editor
 
 import android.app.Application
 import androidx.databinding.ObservableField
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import com.github.irshulx.models.EditorTextStyle
+import androidx.lifecycle.*
 import com.journal.database.JournalDB
 import com.journal.database.entities.Note
 import kotlinx.coroutines.Dispatchers
@@ -17,17 +14,32 @@ class RichEditorViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     var notebookId = 1L
-    var text: String? = null
-    var title = ObservableField("")
-    val style = MutableLiveData<EditorTextStyle>()
+    var noteId = MutableLiveData<Long>()
 
-    fun updateStyle(editorTextStyle: EditorTextStyle) {
-        style.postValue(editorTextStyle)
-    }
+    var note = ObservableField<Note>()
 
-    fun save(text: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            noteDao.insert(Note(note_title = title.get(), note = text, notebookId = notebookId))
+    val noteLiveData: LiveData<Note> = Transformations.map(noteId) { id ->
+        return@map if (id > 0L) {
+            viewModelScope.launch(Dispatchers.IO) {
+                note.set(noteDao.getNote(id))
+            }
+            null
+        } else {
+            draft()
+            null
         }
     }
+
+    private fun draft() {
+        viewModelScope.launch(Dispatchers.IO) {
+            noteId.postValue(noteDao.insert(Note(notebookId = notebookId, note = "# ")))
+        }
+    }
+
+    fun update() {
+        viewModelScope.launch(Dispatchers.IO) {
+            noteDao.update(note.get())
+        }
+    }
+
 }

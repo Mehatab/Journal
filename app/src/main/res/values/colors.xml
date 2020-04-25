@@ -7,4 +7,13 @@
     <color name="textColorPrimary">#292635</color>
     <color name="textColorSecondary">#9792AA</color>
     <color name="note">#EF0754</color>
+
+
+    <color name="markdown_syntax">#1F000000</color>
+    <color name="markdown_blockquote_indentation_rule">@color/markdown_syntax</color>
+    <color name="markdown_blockquote_text">@color/textColorSecondary</color>
+    <color name="markdown_link_text">#4A7DFF</color>
+    <color name="markdown_link_url">#9E9E9E</color>
+    <color name="markdown_horizontal_rule">@color/textColorSecondary</color>
+    <color name="markdown_code_background">#E1DFDF</color>
 </resources>

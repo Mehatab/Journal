@@ -56,6 +56,10 @@
             android:id="@+id/action_notebook_to_edit"
             app:destination="@id/new_notebook" />
 
+        <action
+            android:id="@+id/notebook_to_editor"
+            app:destination="@id/editor" />
+
     </fragment>
 
     <dialog

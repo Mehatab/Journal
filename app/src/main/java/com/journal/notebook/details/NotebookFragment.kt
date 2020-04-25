@@ -13,8 +13,9 @@ import com.journal.common.GenericRVAdapter
 import com.journal.database.entities.Note
 import com.journal.databinding.FragmentNotebookBinding
 import com.journal.utils.NOTEBOOK_ID
+import com.journal.utils.NOTE_ID
 
-class NotebookFragment : Fragment() {
+class NotebookFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListener {
     private lateinit var binding: FragmentNotebookBinding
     private val viewModel by viewModels<NotebookViewModel>()
     private lateinit var adapter: GenericRVAdapter<Note>
@@ -36,7 +37,7 @@ class NotebookFragment : Fragment() {
             it.lifecycleOwner = viewLifecycleOwner
         }
         binding.viewModel = viewModel
-        adapter = GenericRVAdapter(R.layout.adapter_note_item)
+        adapter = GenericRVAdapter(R.layout.adapter_note_item, this)
         binding.rv.adapter = adapter
         initListeners()
         return binding.root
@@ -44,7 +45,7 @@ class NotebookFragment : Fragment() {
 
     private fun initListeners() {
         viewModel.notes.observe(viewLifecycleOwner, Observer {
-            adapter.items = it
+            adapter.setList(it)
         })
 
         binding.add.setOnClickListener {
@@ -62,6 +63,17 @@ class NotebookFragment : Fragment() {
         }
     }
 
+    override fun onClick(view: View, position: Int) {
+        when (view.id) {
+            R.id.note_layout -> {
+                val note = viewModel.notes.value?.get(position)
+                findNavController().navigate(R.id.notebook_to_editor, Bundle().apply {
+                    putLong(NOTEBOOK_ID, note?.notebookId ?: 0)
+                    putLong(NOTE_ID, note?.noteId ?: 0)
+                })
+            }
+        }
+    }
 
     private fun onOptionsItemSelected(itemId: Int): Boolean {
         when (itemId) {

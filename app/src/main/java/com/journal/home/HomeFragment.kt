@@ -38,11 +38,11 @@ class HomeFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListener {
         binding.rv.adapter = notesAdapter
 
         viewModel.notebooks.observe(viewLifecycleOwner, Observer {
-            notebookAdapter.items = it
+            notebookAdapter.setList(it)
         })
 
         viewModel.notes.observe(viewLifecycleOwner, Observer {
-            notesAdapter.items = it
+            notesAdapter.setList(it)
         })
 
         initListeners()
@@ -61,7 +61,6 @@ class HomeFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListener {
         binding.addNotebook.setOnClickListener {
             findNavController().navigate(R.id.home_to_new_notebook)
         }
-
     }
 
     override fun onClick(view: View, position: Int) {

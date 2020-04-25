@@ -7,6 +7,7 @@
             name="adapterPosition"
             type="Integer" />
 
+        <import type="android.graphics.Color" />
         <variable
             name="listener"
             type="com.journal.common.GenericRVAdapter.OnListItemViewClickListener" />
@@ -20,16 +21,17 @@
         android:id="@+id/notebook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
         android:onClick="@{(v)-> listener.onClick(v, adapterPosition)}">
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_140sdp"
-            app:cardCornerRadius="@dimen/_5sdp"
+            app:cardBackgroundColor="@{Color.parseColor(viewModel.color)}"
+            app:cardPreventCornerOverlap="true"
             app:cardElevation="@dimen/_3sdp"
-            app:cardPreventCornerOverlap="false"
             app:cardUseCompatPadding="true"
+            app:shapeAppearanceOverlay="@style/Widget.AppTheme.JournalImageView"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -38,7 +40,6 @@
                 android:layout_height="match_parent">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    setNotebookTint="@{viewModel.color}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"

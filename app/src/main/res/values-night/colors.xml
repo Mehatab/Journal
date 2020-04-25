@@ -4,6 +4,15 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#9E5CFD</color>
     <color name="textColorPrimary">#DEDCE4</color>
-    <color name="textColorSecondary">#4B4A4C</color>
+    <color name="textColorSecondary">#A7A7A8</color>
     <color name="background">#000000</color>
+
+
+    <color name="markdown_syntax">#1FFFFFFF</color>
+    <color name="markdown_blockquote_indentation_rule">@color/markdown_syntax</color>
+    <color name="markdown_blockquote_text">@color/textColorSecondary</color>
+    <color name="markdown_link_text">#4A7DFF</color>
+    <color name="markdown_link_url">#9E9E9E</color>
+    <color name="markdown_horizontal_rule">@color/textColorSecondary</color>
+    <color name="markdown_code_background">#1E1E1E</color>
 </resources>

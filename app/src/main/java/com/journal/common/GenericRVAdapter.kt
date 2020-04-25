@@ -13,10 +13,13 @@ class GenericRVAdapter<T : DiffItem>(
     @LayoutRes val layoutId: Int,
     var onListItemViewClickListener: OnListItemViewClickListener? = null
 ) : RecyclerView.Adapter<GenericRVAdapter.GenericViewHolder<T>>() {
-
-    var items: List<T> by autoNotifyDelegate(adapter = this, initialValue = emptyList())
-
     private var inflater: LayoutInflater? = null
+    private var itemsList: List<T> by autoNotifyDelegate(adapter = this, initialValue = emptyList())
+
+    fun setList(items: List<T>) {
+        this.itemsList = items
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenericViewHolder<T> {
         val layoutInflater = inflater ?: LayoutInflater.from(parent.context)
@@ -25,10 +28,10 @@ class GenericRVAdapter<T : DiffItem>(
         return GenericViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = itemsList.size
 
     override fun onBindViewHolder(holder: GenericViewHolder<T>, position: Int) {
-        val itemViewModel = items[position]
+        val itemViewModel = itemsList[position]
         holder.bind(itemViewModel, onListItemViewClickListener, holder.adapterPosition)
     }
 

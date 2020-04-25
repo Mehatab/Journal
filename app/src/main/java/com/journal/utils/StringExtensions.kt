@@ -12,9 +12,3 @@ fun String?.stripHtml(): String {
         Html.fromHtml(this).toString().replace("\n", "").trim()
     }
 }
-
-fun String?.titleOrNote(note: String? = null): String {
-    return if (this.isNullOrEmpty()) {
-        note.stripHtml()
-    } else this
-}

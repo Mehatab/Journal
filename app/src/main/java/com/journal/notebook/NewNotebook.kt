@@ -31,7 +31,7 @@ class NewNotebook : BottomSheetDialogFragment(), GenericRVAdapter.OnListItemView
         binding.rv.adapter = adapter
 
         viewModel.colors.observe(viewLifecycleOwner, Observer {
-            adapter.items = it
+            adapter.setList(it)
         })
 
         viewModel.note.observe(viewLifecycleOwner, Observer {
