@@ -69,8 +69,6 @@ dependencies {
     implementation Deps.room_ktx
     kapt Deps.room_compiler
 
-    implementation "ru.noties.markwon:core:3.0.0"
-
     implementation Deps.junit
     implementation Deps.junit_ext
     implementation Deps.espresso

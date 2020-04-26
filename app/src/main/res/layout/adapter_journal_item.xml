@@ -8,6 +8,7 @@
             type="Integer" />
 
         <import type="android.graphics.Color" />
+
         <variable
             name="listener"
             type="com.journal.common.GenericRVAdapter.OnListItemViewClickListener" />
@@ -48,13 +49,16 @@
                     app:srcCompat="@drawable/ic_notebook" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/_80sdp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_16sdp"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:background="@android:color/transparent"
                     android:text="@{viewModel.title}"
                     android:textColor="@android:color/white"
                     android:textStyle="bold"
+                    android:textSize="@dimen/_10ssp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

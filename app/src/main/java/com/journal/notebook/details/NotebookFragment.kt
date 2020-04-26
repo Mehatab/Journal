@@ -61,6 +61,10 @@ class NotebookFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListene
         binding.toolbar.setOnMenuItemClickListener {
             return@setOnMenuItemClickListener onOptionsItemSelected(it.itemId)
         }
+
+        binding.sort.setOnClickListener {
+            viewModel.ascOrder.postValue(it.isSelected.not())
+        }
     }
 
     override fun onClick(view: View, position: Int) {

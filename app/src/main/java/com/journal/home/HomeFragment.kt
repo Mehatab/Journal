@@ -55,7 +55,9 @@ class HomeFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListener {
         }
 
         binding.add.setOnClickListener {
-            findNavController().navigate(R.id.home_to_editor)
+            findNavController().navigate(R.id.home_to_editor, Bundle().apply {
+                putLong(NOTEBOOK_ID, 1)
+            })
         }
 
         binding.addNotebook.setOnClickListener {

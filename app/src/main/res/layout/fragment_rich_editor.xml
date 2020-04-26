@@ -29,7 +29,7 @@
             android:gravity="top"
             android:paddingHorizontal="@dimen/_10sdp"
             android:paddingBottom="@dimen/_20sdp"
-            android:text="@{viewModel.note.note}"
+            android:text="@={viewModel.note.note}"
             android:textSize="@dimen/_11ssp"
             app:layout_constraintBottom_toTopOf="@id/editor_format_toolbar"
             app:layout_constraintTop_toBottomOf="@id/toolbar" />

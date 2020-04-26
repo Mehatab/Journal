@@ -72,11 +72,12 @@
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:padding="@dimen/_4sdp"
                             android:scaleType="centerInside"
+                            setSelected="@{viewModel.ascOrder}"
                             app:layout_constraintBottom_toBottomOf="@id/notebooks"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="@id/notebooks"
                             app:srcCompat="@drawable/ic_swap"
-                            app:tint="?android:attr/textColorHint" />
+                            app:tint="@color/state_button_color" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

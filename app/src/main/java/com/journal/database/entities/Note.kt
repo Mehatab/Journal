@@ -2,11 +2,19 @@ package com.journal.database.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.editor.util.SplitHeadingAndBody
 import com.journal.common.DiffItem
 
-@Entity(tableName = "Note")
+@Entity(
+    tableName = "Note", foreignKeys = [ForeignKey(
+        entity = Notebook::class,
+        childColumns = ["notebook_id"],
+        parentColumns = ["notebook_id"],
+        onDelete = ForeignKey.CASCADE
+    )]
+)
 class Note(
     @PrimaryKey
     @ColumnInfo(name = "note_id")

@@ -12,7 +12,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         JournalDB.get(application).getNoteDao()
     }
 
-    val query = MutableLiveData<String>()
+    val query = MutableLiveData<String>("")
 
     val notebooks = Transformations.switchMap(query) { noteDao.getNotebooks("%$it%") }
 
@@ -20,7 +20,4 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getNotebook(position: Int) = notebooks.value?.get(position)
 
-    init {
-        query.postValue("")
-    }
 }

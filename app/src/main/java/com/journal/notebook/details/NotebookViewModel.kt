@@ -17,10 +17,13 @@ class NotebookViewModel(application: Application) : AndroidViewModel(application
 
     val notebook = ObservableField<Notebook>()
     val notebookId = MutableLiveData<Long>()
+    val ascOrder = MutableLiveData(false)
 
     val notes = Transformations.switchMap(query) { q ->
-        Transformations.switchMap(notebookId) {
-            noteDao.getNotes(it, "%$q%")
+        Transformations.switchMap(notebookId) { id ->
+            Transformations.switchMap(ascOrder) {
+                noteDao.getNotes(id, "%$q%", it)
+            }
         }
     }
 

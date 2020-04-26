@@ -21,12 +21,15 @@ import com.journal.customviews.toolbar.OnLinkInsertListener
 import com.journal.databinding.FragmentRichEditorBinding
 import com.journal.utils.NOTEBOOK_ID
 import com.journal.utils.NOTE_ID
+import kotlinx.coroutines.*
 import kotlin.math.max
 import kotlin.math.min
 
 class RichEditorFragment : Fragment(), OnLinkInsertListener {
     private lateinit var binding: FragmentRichEditorBinding
     private val mViewModel by viewModels<RichEditorViewModel>()
+    private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Main)
+    private var saveNoteJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +49,9 @@ class RichEditorFragment : Fragment(), OnLinkInsertListener {
             viewModel = mViewModel
         }
         initListener()
+
+        viewLifecycleOwner.lifecycle.addObserver(mViewModel)
+
         return binding.root
     }
 
@@ -70,13 +76,30 @@ class RichEditorFragment : Fragment(), OnLinkInsertListener {
             AddLinkDialog.showPreFilled(childFragmentManager, preFilledTitle.toString())
         }
 
+
+        var note = "# "
         binding.editor.doAfterTextChanged {
-            mViewModel.update()
+            if (note == it.toString().trim())
+                return@doAfterTextChanged
+
+            saveNoteJob?.cancel()
+            saveNoteJob = coroutineScope.launch {
+                it?.let {
+                    delay(500)
+                    mViewModel.update()
+                    note = it.toString().trim()
+                }
+            }
         }
 
         mViewModel.noteLiveData.observe(viewLifecycleOwner, Observer {
 
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        saveNoteJob?.cancel()
     }
 
     private fun markdownHintStyles(): MarkdownHintStyles {

@@ -3,8 +3,9 @@ package com.journal.utils
 import android.graphics.Color
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.databinding.BindingAdapter
-import ru.noties.markwon.Markwon
+import com.editor.setMarkdown
 
 @BindingAdapter("setColor")
 fun setColor(radioButton: View, color: String) {
@@ -14,5 +15,10 @@ fun setColor(radioButton: View, color: String) {
 
 @BindingAdapter("setMarkdown")
 fun setMarkdown(tv: TextView, string: String? = null) {
-    Markwon.create(tv.context).setMarkdown(tv, string ?: "")
+    tv.setMarkdown(string)
+}
+
+@BindingAdapter("setSelected")
+fun setSelected(tv: AppCompatImageButton, isSelected: Boolean? = false) {
+    tv.isSelected = isSelected ?: false
 }
