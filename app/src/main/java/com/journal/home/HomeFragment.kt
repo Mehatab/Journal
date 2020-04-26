@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.transition.Hold
 import com.journal.R
 import com.journal.common.GenericRVAdapter
 import com.journal.database.entities.NoteInfo
@@ -15,6 +17,7 @@ import com.journal.database.entities.Notebook
 import com.journal.databinding.FragmentHomeBinding
 import com.journal.utils.NOTEBOOK_ID
 import com.journal.utils.NOTE_ID
+import com.journal.utils.TRANSITION_NAME
 
 class HomeFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListener {
     private lateinit var binding: FragmentHomeBinding
@@ -56,9 +59,11 @@ class HomeFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListener {
         }
 
         binding.add.setOnClickListener {
+            val extras = FragmentNavigatorExtras(binding.add to binding.add.transitionName)
             findNavController().navigate(R.id.home_to_editor, Bundle().apply {
                 putLong(NOTEBOOK_ID, 1)
-            })
+                putString(TRANSITION_NAME, binding.add.transitionName)
+            }, null, extras)
         }
 
         binding.addNotebook.setOnClickListener {
@@ -77,11 +82,13 @@ class HomeFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListener {
             }
 
             R.id.note_layout -> {
+                val extras = FragmentNavigatorExtras(view to view.transitionName)
                 val note = viewModel.notes.value?.get(position)
                 findNavController().navigate(R.id.home_to_editor, Bundle().apply {
+                    putString(TRANSITION_NAME, view.transitionName)
                     putLong(NOTEBOOK_ID, note?.notebook_id ?: 0)
                     putLong(NOTE_ID, note?.note_id ?: 0)
-                })
+                }, null, extras)
             }
         }
     }
@@ -91,5 +98,10 @@ class HomeFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListener {
             R.id.setting -> findNavController().navigate(R.id.goto_setting)
         }
         return true
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        exitTransition = Hold()
     }
 }

@@ -53,6 +53,7 @@ dependencies {
     implementation Deps.core_ktx
     implementation Deps.constraintlayout
     implementation Deps.material
+    //implementation Deps.transition
 
     implementation Deps.ssp
     implementation Deps.sdp

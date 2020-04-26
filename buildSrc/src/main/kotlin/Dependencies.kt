@@ -12,7 +12,7 @@ object Config {
 }
 
 object Versions {
-    val material = "1.2.0-alpha04"
+    val material = "1.2.0-alpha06"
     val constraintlayout = "2.0.0-beta4"
     val fragment = "1.3.0-alpha03"
     val core_ktx = "1.2.0"
@@ -26,10 +26,12 @@ object Versions {
     val nav_version = "2.2.1"
     val preference = "1.1.1"
     val vectorchildfinder = "1.0.0"
+    val transition = "1.3.1"
 }
 
 object Deps {
     //UI
+    val transition = "androidx.transition:transition:${Versions.transition}"
     val material = "com.google.android.material:material:${Versions.material}"
     val constraintlayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintlayout}"
 

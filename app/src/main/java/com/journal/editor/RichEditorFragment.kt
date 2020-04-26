@@ -14,6 +14,8 @@ import com.editor.MarkdownHintStyles
 import com.editor.MarkdownHints
 import com.editor.MarkdownSpanPool
 import com.editor.flexmark.FlexmarkMarkdownParser
+import com.google.android.material.transition.Hold
+import com.google.android.material.transition.MaterialContainerTransform
 import com.journal.R
 import com.journal.customviews.toolbar.AddLinkDialog
 import com.journal.customviews.toolbar.Link
@@ -21,6 +23,7 @@ import com.journal.customviews.toolbar.OnLinkInsertListener
 import com.journal.databinding.FragmentRichEditorBinding
 import com.journal.utils.NOTEBOOK_ID
 import com.journal.utils.NOTE_ID
+import com.journal.utils.TRANSITION_NAME
 import kotlinx.coroutines.*
 import kotlin.math.max
 import kotlin.math.min
@@ -33,6 +36,9 @@ class RichEditorFragment : Fragment(), OnLinkInsertListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        exitTransition = Hold()
+        sharedElementEnterTransition = MaterialContainerTransform()
+
         arguments?.let {
             mViewModel.notebookId = it.getLong(NOTEBOOK_ID, -1)
             mViewModel.noteId.postValue(it.getLong(NOTE_ID, -1))
@@ -48,14 +54,15 @@ class RichEditorFragment : Fragment(), OnLinkInsertListener {
             lifecycleOwner = viewLifecycleOwner
             viewModel = mViewModel
         }
-        initListener()
+
+        binding.parent.transitionName = arguments?.getString(TRANSITION_NAME)
 
         viewLifecycleOwner.lifecycle.addObserver(mViewModel)
 
         return binding.root
     }
 
-    private fun initListener() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val parser = FlexmarkMarkdownParser(markdownHintStyles(), MarkdownSpanPool())
         val markdownHints = MarkdownHints(binding.editor, parser)
         binding.editor.addTextChangedListener(markdownHints.textWatcher())
@@ -96,6 +103,7 @@ class RichEditorFragment : Fragment(), OnLinkInsertListener {
 
         })
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

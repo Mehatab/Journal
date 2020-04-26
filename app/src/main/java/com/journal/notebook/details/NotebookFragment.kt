@@ -4,24 +4,29 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.transition.Hold
 import com.journal.R
 import com.journal.common.GenericRVAdapter
 import com.journal.database.entities.Note
 import com.journal.databinding.FragmentNotebookBinding
 import com.journal.utils.NOTEBOOK_ID
 import com.journal.utils.NOTE_ID
+import com.journal.utils.TRANSITION_NAME
 
 class NotebookFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListener {
     private lateinit var binding: FragmentNotebookBinding
     private val viewModel by viewModels<NotebookViewModel>()
-    private lateinit var adapter: GenericRVAdapter<Note>
+    private var adapter = GenericRVAdapter<Note>(R.layout.adapter_note_item, this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        exitTransition = Hold()
         arguments?.let {
             viewModel.notebookId.postValue(it.getLong(NOTEBOOK_ID, 0L))
         }
@@ -36,22 +41,30 @@ class NotebookFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListene
         binding = FragmentNotebookBinding.inflate(inflater).also {
             it.lifecycleOwner = viewLifecycleOwner
         }
+
         binding.viewModel = viewModel
-        adapter = GenericRVAdapter(R.layout.adapter_note_item, this)
-        binding.rv.adapter = adapter
-        initListeners()
+
         return binding.root
     }
 
-    private fun initListeners() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        postponeEnterTransition()
+        requireView().doOnPreDraw { startPostponedEnterTransition() }
+
+        binding.rv.adapter = adapter
+
         viewModel.notes.observe(viewLifecycleOwner, Observer {
             adapter.setList(it)
         })
 
         binding.add.setOnClickListener {
+            val extras = FragmentNavigatorExtras(binding.add to binding.add.transitionName)
             findNavController().navigate(R.id.action_notebook_to_editor, Bundle().apply {
                 putLong(NOTEBOOK_ID, viewModel.notebookId.value ?: 0)
-            })
+                putString(TRANSITION_NAME, binding.add.transitionName)
+            }, null, extras)
         }
 
         binding.toolbar.setNavigationOnClickListener {
@@ -70,23 +83,26 @@ class NotebookFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListene
     override fun onClick(view: View, position: Int) {
         when (view.id) {
             R.id.note_layout -> {
+                val extras = FragmentNavigatorExtras(view to view.transitionName)
                 val note = viewModel.notes.value?.get(position)
                 findNavController().navigate(R.id.notebook_to_editor, Bundle().apply {
+                    putSerializable(TRANSITION_NAME, view.transitionName)
                     putLong(NOTEBOOK_ID, note?.notebookId ?: 0)
                     putLong(NOTE_ID, note?.noteId ?: 0)
-                })
+                }, null, extras)
             }
         }
     }
 
     private fun onOptionsItemSelected(itemId: Int): Boolean {
-        when (itemId) {
+        return when (itemId) {
             R.id.edit -> {
                 findNavController().navigate(R.id.action_notebook_to_edit, Bundle().apply {
                     putLong(NOTEBOOK_ID, viewModel.notebookId.value ?: 0)
                 })
+                true
             }
+            else -> false
         }
-        return true
     }
 }

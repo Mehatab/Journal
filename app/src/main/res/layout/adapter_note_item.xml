@@ -24,6 +24,7 @@
         android:id="@+id/note_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/background"
         android:onClick="@{(v)-> listener.onClick(v, adapterPosition)}"
         android:paddingBottom="@dimen/_16sdp">
 
@@ -35,6 +36,8 @@
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="@dimen/_11ssp"
             android:textStyle="bold"
+            android:ellipsize="end"
+            android:maxLines="1"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -43,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_2sdp"
             android:ellipsize="end"
-            android:maxLines="1"
+            android:maxLines="2"
             setMarkdown="@{viewModel.getBody()}"
             android:textColor="?android:attr/textColorSecondary"
             android:textSize="@dimen/_9ssp"

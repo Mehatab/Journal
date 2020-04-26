@@ -1,5 +1,6 @@
 package com.journal.utils
 
+const val TRANSITION_NAME = "transition_name"
 const val NOTEBOOK_ID = "notebook_id"
 const val NOTE_ID = "note_id"
 

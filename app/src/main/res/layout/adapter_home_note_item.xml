@@ -12,6 +12,10 @@
             type="Integer" />
 
         <variable
+            name="transitionName"
+            type="String" />
+
+        <variable
             name="listener"
             type="com.journal.common.GenericRVAdapter.OnListItemViewClickListener" />
 
@@ -24,6 +28,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/note_layout"
         android:layout_width="match_parent"
+        android:transitionName="@{transitionName}"
         android:onClick="@{(v)-> listener.onClick(v, adapterPosition)}"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/_16sdp">

@@ -13,6 +13,7 @@ class GenericRVAdapter<T : DiffItem>(
     @LayoutRes val layoutId: Int,
     var onListItemViewClickListener: OnListItemViewClickListener? = null
 ) : RecyclerView.Adapter<GenericRVAdapter.GenericViewHolder<T>>() {
+
     private var inflater: LayoutInflater? = null
     private var itemsList: List<T> by autoNotifyDelegate(adapter = this, initialValue = emptyList())
 
@@ -43,6 +44,8 @@ class GenericRVAdapter<T : DiffItem>(
             onListItemViewClickListener: OnListItemViewClickListener? = null,
             adapterPosition: Int
         ) {
+            binding.root.transitionName = "Transition_$adapterPosition"
+            binding.setVariable(BR.transitionName, "Transition_$adapterPosition")
             binding.setVariable(BR.viewModel, itemViewModel)
             binding.setVariable(BR.listener, onListItemViewClickListener)
             binding.setVariable(BR.adapterPosition, adapterPosition)

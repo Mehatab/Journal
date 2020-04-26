@@ -129,6 +129,7 @@
             android:layout_margin="@dimen/_10sdp"
             app:backgroundTint="?colorAccent"
             app:fabSize="normal"
+            android:transitionName="@string/fab_transition"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:srcCompat="@drawable/ic_plus"
