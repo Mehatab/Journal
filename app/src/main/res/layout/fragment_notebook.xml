@@ -90,19 +90,17 @@
 
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-
             </com.google.android.material.appbar.AppBarLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="@dimen/_10sdp"
                 android:overScrollMode="never"
                 android:paddingTop="@dimen/_20sdp"
                 app:layoutManager="LinearLayoutManager"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/search"
@@ -119,7 +117,7 @@
                 android:paddingRight="@dimen/_16sdp"
                 android:text="@={viewModel.query}"
                 app:collapsedTarget="@id/search_collapsed_target"
-                app:layout_behavior=".common.CollapsingImageBehavior"
+                app:layout_behavior=".common.CollapsingViewBehavior"
                 app:layout_collapseMode="pin" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>

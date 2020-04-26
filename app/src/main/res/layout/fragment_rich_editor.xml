@@ -34,6 +34,7 @@
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/editor"
                 android:layout_width="match_parent"
+                android:lineSpacingExtra="@dimen/_3sdp"
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:gravity="top"

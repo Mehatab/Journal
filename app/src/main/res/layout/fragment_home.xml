@@ -96,8 +96,10 @@
                         android:id="@+id/toolbar_collapsed_target"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
+                        android:layout_marginVertical="@dimen/_10sdp"
                         android:layout_marginHorizontal="@dimen/_10sdp"
-                        android:layout_marginVertical="@dimen/_10sdp" />
+                        android:background="@android:color/transparent"
+                        app:layout_collapseMode="pin" />
 
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -106,13 +108,13 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/_10sdp"
                 android:overScrollMode="never"
                 android:paddingTop="@dimen/_20sdp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:clipToPadding="false"
+                app:layoutManager="LinearLayoutManager"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/search"
@@ -129,7 +131,7 @@
                 android:paddingRight="@dimen/_16sdp"
                 android:text="@={viewModel.query}"
                 app:collapsedTarget="@id/toolbar_collapsed_target"
-                app:layout_behavior=".common.CollapsingImageBehavior"
+                app:layout_behavior=".common.CollapsingViewBehavior"
                 app:layout_collapseMode="pin" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
