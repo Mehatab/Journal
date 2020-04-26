@@ -6,9 +6,12 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.journal.database.JournalDB
+import com.journal.database.entities.Note
 import com.journal.database.entities.Notebook
 
 class NotebookViewModel(application: Application) : AndroidViewModel(application) {
+
+
     private val noteDao by lazy {
         JournalDB.get(application).getNoteDao()
     }
@@ -29,6 +32,11 @@ class NotebookViewModel(application: Application) : AndroidViewModel(application
 
     val notebooks = Transformations.switchMap(notebookId) {
         noteDao.getNotebook(it)
+    }
+
+
+    fun getNote(position: Int): Note {
+        return notes.value?.get(position) ?: Note()
     }
 
     init {

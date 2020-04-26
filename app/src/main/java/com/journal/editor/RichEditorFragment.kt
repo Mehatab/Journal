@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.editor.MarkdownHintStyles
 import com.editor.MarkdownHints
 import com.editor.MarkdownSpanPool
@@ -21,28 +22,22 @@ import com.journal.customviews.toolbar.AddLinkDialog
 import com.journal.customviews.toolbar.Link
 import com.journal.customviews.toolbar.OnLinkInsertListener
 import com.journal.databinding.FragmentRichEditorBinding
-import com.journal.utils.NOTEBOOK_ID
-import com.journal.utils.NOTE_ID
-import com.journal.utils.TRANSITION_NAME
 import kotlinx.coroutines.*
 import kotlin.math.max
 import kotlin.math.min
 
 class RichEditorFragment : Fragment(), OnLinkInsertListener {
+
     private lateinit var binding: FragmentRichEditorBinding
     private val mViewModel by viewModels<RichEditorViewModel>()
     private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Main)
     private var saveNoteJob: Job? = null
+    private val args: RichEditorFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         exitTransition = Hold()
         sharedElementEnterTransition = MaterialContainerTransform()
-
-        arguments?.let {
-            mViewModel.notebookId = it.getLong(NOTEBOOK_ID, -1)
-            mViewModel.noteId.postValue(it.getLong(NOTE_ID, -1))
-        }
     }
 
     override fun onCreateView(
@@ -55,14 +50,16 @@ class RichEditorFragment : Fragment(), OnLinkInsertListener {
             viewModel = mViewModel
         }
 
-        binding.parent.transitionName = arguments?.getString(TRANSITION_NAME)
-
+        binding.parent.transitionName = args.transitionName
         viewLifecycleOwner.lifecycle.addObserver(mViewModel)
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        mViewModel.notebookId = args.notebookId
+        mViewModel.noteId.postValue(args.noteId)
+
         val parser = FlexmarkMarkdownParser(markdownHintStyles(), MarkdownSpanPool())
         val markdownHints = MarkdownHints(binding.editor, parser)
         binding.editor.addTextChangedListener(markdownHints.textWatcher())

@@ -16,7 +16,6 @@ import com.journal.common.GenericRVAdapter
 import com.journal.database.entities.Note
 import com.journal.databinding.FragmentNotebookBinding
 import com.journal.utils.NOTEBOOK_ID
-import com.journal.utils.NOTE_ID
 import com.journal.utils.TRANSITION_NAME
 
 class NotebookFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListener {
@@ -49,7 +48,6 @@ class NotebookFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListene
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         postponeEnterTransition()
         requireView().doOnPreDraw { startPostponedEnterTransition() }
 
@@ -83,13 +81,16 @@ class NotebookFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListene
     override fun onClick(view: View, position: Int) {
         when (view.id) {
             R.id.note_layout -> {
-                val extras = FragmentNavigatorExtras(view to view.transitionName)
-                val note = viewModel.notes.value?.get(position)
-                findNavController().navigate(R.id.notebook_to_editor, Bundle().apply {
-                    putSerializable(TRANSITION_NAME, view.transitionName)
-                    putLong(NOTEBOOK_ID, note?.notebookId ?: 0)
-                    putLong(NOTE_ID, note?.noteId ?: 0)
-                }, null, extras)
+                val note = viewModel.getNote(position)
+                val action = NotebookFragmentDirections.notebookToEditor(
+                    note.noteId ?: 0,
+                    note.notebookId ?: 0,
+                    view.transitionName
+                )
+                findNavController().navigate(
+                    action,
+                    FragmentNavigatorExtras(view to view.transitionName)
+                )
             }
         }
     }
@@ -97,9 +98,9 @@ class NotebookFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListene
     private fun onOptionsItemSelected(itemId: Int): Boolean {
         return when (itemId) {
             R.id.edit -> {
-                findNavController().navigate(R.id.action_notebook_to_edit, Bundle().apply {
-                    putLong(NOTEBOOK_ID, viewModel.notebookId.value ?: 0)
-                })
+                val action =
+                    NotebookFragmentDirections.actionNotebookToEdit(viewModel.notebookId.value ?: 0)
+                findNavController().navigate(action)
                 true
             }
             else -> false

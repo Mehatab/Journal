@@ -16,7 +16,7 @@ object Versions {
     val constraintlayout = "2.0.0-beta4"
     val fragment = "1.3.0-alpha03"
     val core_ktx = "1.2.0"
-    val kotlin_stdlib = "1.3.50"
+    val kotlin_stdlib = "1.3.72"
     val junit = "4.12"
     val junit_ext = "1.1.1"
     val espresso = "3.2.0"

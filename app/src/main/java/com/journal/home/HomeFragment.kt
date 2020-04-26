@@ -16,13 +16,11 @@ import com.journal.database.entities.NoteInfo
 import com.journal.database.entities.Notebook
 import com.journal.databinding.FragmentHomeBinding
 import com.journal.utils.NOTEBOOK_ID
-import com.journal.utils.NOTE_ID
-import com.journal.utils.TRANSITION_NAME
 
 class HomeFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListener {
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var notebookAdapter: GenericRVAdapter<Notebook>
-    private lateinit var notesAdapter: GenericRVAdapter<NoteInfo>
+    private var notebookAdapter = GenericRVAdapter<Notebook>(R.layout.adapter_journal_item, this)
+    private var notesAdapter = GenericRVAdapter<NoteInfo>(R.layout.adapter_home_note_item, this)
     private val viewModel by viewModels<HomeViewModel>()
 
     override fun onCreateView(
@@ -30,14 +28,16 @@ class HomeFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding = FragmentHomeBinding.inflate(inflater).also {
             it.lifecycleOwner = viewLifecycleOwner
             it.viewModel = viewModel
         }
+        return binding.root
+    }
 
-        notebookAdapter = GenericRVAdapter(R.layout.adapter_journal_item, this)
-        notesAdapter = GenericRVAdapter(R.layout.adapter_home_note_item, this)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         binding.booksRv.adapter = notebookAdapter
         binding.rv.adapter = notesAdapter
 
@@ -50,7 +50,6 @@ class HomeFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListener {
         })
 
         initListeners()
-        return binding.root
     }
 
     private fun initListeners() {
@@ -59,11 +58,11 @@ class HomeFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListener {
         }
 
         binding.add.setOnClickListener {
-            val extras = FragmentNavigatorExtras(binding.add to binding.add.transitionName)
-            findNavController().navigate(R.id.home_to_editor, Bundle().apply {
-                putLong(NOTEBOOK_ID, 1)
-                putString(TRANSITION_NAME, binding.add.transitionName)
-            }, null, extras)
+            val action = HomeFragmentDirections.homeToEditor(1, 0, binding.add.transitionName)
+            findNavController().navigate(
+                action,
+                FragmentNavigatorExtras(binding.add to binding.add.transitionName)
+            )
         }
 
         binding.addNotebook.setOnClickListener {
@@ -83,12 +82,13 @@ class HomeFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListener {
 
             R.id.note_layout -> {
                 val extras = FragmentNavigatorExtras(view to view.transitionName)
-                val note = viewModel.notes.value?.get(position)
-                findNavController().navigate(R.id.home_to_editor, Bundle().apply {
-                    putString(TRANSITION_NAME, view.transitionName)
-                    putLong(NOTEBOOK_ID, note?.notebook_id ?: 0)
-                    putLong(NOTE_ID, note?.note_id ?: 0)
-                }, null, extras)
+                val note = viewModel.getNote(position)
+                val action = HomeFragmentDirections.homeToEditor(
+                    note.note_id ?: 0,
+                    note.notebook_id ?: 0,
+                    view.transitionName
+                )
+                findNavController().navigate(action, extras)
             }
         }
     }

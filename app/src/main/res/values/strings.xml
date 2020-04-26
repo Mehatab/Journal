@@ -2,12 +2,15 @@
     <string name="app_name">Journal</string>
     <string name="search_entries">Search Entries</string>
     <string name="notebooks">Notebooks</string>
+    <string name="notebook_id">notebook_id</string>
+    <string name="note_id">note_id</string>
     <string name="settings">Settings</string>
     <string name="title">Title</string>
     <string name="notes">Notes</string>
     <string name="save">Save</string>
     <string name="theme">Theme</string>
     <string name="transition">Transition_%s</string>
+    <string name="transition_name">transition_name</string>
 
     <string name="system">-1</string>
     <string name="edit">Edit</string>

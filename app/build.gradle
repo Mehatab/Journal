@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion Config.compileSdk
@@ -53,7 +54,6 @@ dependencies {
     implementation Deps.core_ktx
     implementation Deps.constraintlayout
     implementation Deps.material
-    //implementation Deps.transition
 
     implementation Deps.ssp
     implementation Deps.sdp

@@ -7,61 +7,59 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.journal.R
 import com.journal.common.GenericRVAdapter
 import com.journal.database.entities.NotebookColor
 import com.journal.databinding.FragmentNewNotebookBinding
-import com.journal.utils.NOTEBOOK_ID
 
 class NewNotebook : BottomSheetDialogFragment(), GenericRVAdapter.OnListItemViewClickListener {
     private lateinit var binding: FragmentNewNotebookBinding
-    private lateinit var adapter: GenericRVAdapter<NotebookColor>
-    private val viewModel by viewModels<NewNotebookViewModel>()
+    private var adapter = GenericRVAdapter<NotebookColor>(R.layout.adapter_color_item, this)
+    private val mViewModel by viewModels<NewNotebookViewModel>()
+    private val args: NewNotebookArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentNewNotebookBinding.inflate(inflater)
-        binding.viewModel = viewModel
+        binding = FragmentNewNotebookBinding.inflate(inflater).apply {
+            viewModel = mViewModel
+        }
+        return binding.root
+    }
 
-        adapter = GenericRVAdapter(R.layout.adapter_color_item, this)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mViewModel.notebookId.postValue(if (args.notebookId == -1L) null else args.notebookId)
+
         binding.rv.adapter = adapter
 
-        viewModel.colors.observe(viewLifecycleOwner, Observer {
+        mViewModel.colors.observe(viewLifecycleOwner, Observer {
             adapter.setList(it)
         })
 
-        viewModel.note.observe(viewLifecycleOwner, Observer {
+        mViewModel.note.observe(viewLifecycleOwner, Observer {
             it?.let {
-                viewModel.title.set(it.title)
-                viewModel.selectedColor.postValue(it.color)
+                mViewModel.title.set(it.title)
+                mViewModel.selectedColor.postValue(it.color)
             }
         })
 
         binding.title.setOnEditorActionListener { v, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                viewModel.save {
+                mViewModel.save {
                     dismiss()
                 }
             }
             return@setOnEditorActionListener true
         }
-
-        return binding.root
     }
 
     override fun onClick(view: View, position: Int) {
-        viewModel.updateSelection(position)
+        mViewModel.updateSelection(position)
         adapter.notifyDataSetChanged()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            viewModel.notebookId.postValue(it.getLong(NOTEBOOK_ID))
-        }
     }
 }

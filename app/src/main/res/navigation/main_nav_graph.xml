@@ -41,7 +41,24 @@
     <fragment
         android:id="@+id/editor"
         android:name="com.journal.editor.RichEditorFragment"
-        tools:layout="@layout/fragment_rich_editor" />
+        tools:layout="@layout/fragment_rich_editor">
+
+        <argument
+            android:name="notebook_id"
+            android:defaultValue="0L"
+            app:argType="long" />
+
+        <argument
+            android:name="note_id"
+            android:defaultValue="0L"
+            app:argType="long" />
+
+        <argument
+            android:name="transition_name"
+            android:defaultValue="transition_name"
+            app:argType="string" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/notebook"
@@ -65,6 +82,13 @@
     <dialog
         android:id="@+id/new_notebook"
         android:name="com.journal.notebook.NewNotebook"
-        tools:layout="@layout/fragment_new_notebook" />
+        tools:layout="@layout/fragment_new_notebook">
+
+        <argument
+            android:name="notebook_id"
+            android:defaultValue="-1L"
+            app:argType="long" />
+
+    </dialog>
 
 </navigation>

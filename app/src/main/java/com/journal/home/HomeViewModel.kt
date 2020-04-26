@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.journal.database.JournalDB
+import com.journal.database.entities.NoteInfo
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -20,4 +21,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getNotebook(position: Int) = notebooks.value?.get(position)
 
+    fun getNote(position: Int): NoteInfo {
+        return notes.value?.get(position) ?: NoteInfo()
+    }
 }
