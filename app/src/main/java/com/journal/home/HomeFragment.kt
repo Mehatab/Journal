@@ -14,6 +14,7 @@ import com.journal.database.entities.NoteInfo
 import com.journal.database.entities.Notebook
 import com.journal.databinding.FragmentHomeBinding
 import com.journal.utils.NOTEBOOK_ID
+import com.journal.utils.NOTE_ID
 
 class HomeFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListener {
     private lateinit var binding: FragmentHomeBinding
@@ -73,6 +74,14 @@ class HomeFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListener {
                         putLong(NOTEBOOK_ID, it.notebookId ?: 0)
                     })
                 }
+            }
+
+            R.id.note_layout -> {
+                val note = viewModel.notes.value?.get(position)
+                findNavController().navigate(R.id.home_to_editor, Bundle().apply {
+                    putLong(NOTEBOOK_ID, note?.notebook_id ?: 0)
+                    putLong(NOTE_ID, note?.note_id ?: 0)
+                })
             }
         }
     }

@@ -21,18 +21,27 @@
             app:layout_constraintTop_toTopOf="parent"
             app:navigationIcon="@drawable/ic_cancel" />
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/editor"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@null"
-            android:gravity="top"
+            android:clipToPadding="false"
             android:paddingHorizontal="@dimen/_10sdp"
             android:paddingBottom="@dimen/_20sdp"
-            android:text="@={viewModel.note.note}"
-            android:textSize="@dimen/_11ssp"
+            android:scrollbars="none"
             app:layout_constraintBottom_toTopOf="@id/editor_format_toolbar"
-            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="top"
+                android:text="@={viewModel.note.note}"
+                android:textSize="@dimen/_11ssp" />
+
+        </androidx.core.widget.NestedScrollView>
+
 
         <com.journal.customviews.toolbar.MarkdownFormatToolbarView
             android:id="@+id/editor_format_toolbar"

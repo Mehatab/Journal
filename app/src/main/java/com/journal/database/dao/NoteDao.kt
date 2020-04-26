@@ -20,6 +20,9 @@ interface NoteDao {
     @Insert
     suspend fun insert(notebook: Note): Long
 
+    @Insert
+    fun insertNote(notebook: Note): Long
+
     @Transaction
     suspend fun draft(notebook: Note): Long {
         return insert(notebook)
@@ -28,8 +31,8 @@ interface NoteDao {
     @Query("DELETE FROM note where TRIM(note) = '#' OR TRIM(note) = '' ")
     suspend fun deleteDrafts()
 
-    @Insert
-    fun insertNote(notebook: Notebook)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertNoteBook(notebook: Notebook)
 
     @Query("SELECT * FROM Notebook where notebook_id =:id")
     fun getNotebook(id: Long?): LiveData<Notebook>

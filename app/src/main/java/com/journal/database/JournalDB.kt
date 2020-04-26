@@ -6,6 +6,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.journal.R
 import com.journal.database.dao.NoteDao
 import com.journal.database.entities.Note
 import com.journal.database.entities.Notebook
@@ -32,8 +33,10 @@ abstract class JournalDB : RoomDatabase() {
                             override fun onCreate(db: SupportSQLiteDatabase) {
                                 super.onCreate(db)
                                 Executors.newSingleThreadScheduledExecutor().execute {
-                                    get(context).getNoteDao()
-                                        .insertNote(Notebook(1, "Ruff", "#9E5CFD"))
+                                    with(get(context).getNoteDao()) {
+                                        insertNoteBook(Notebook(1, "Ruff", "#9E5CFD"))
+                                        insertNote(Note(1, context.getString(R.string.guide), 1))
+                                    }
                                 }
                             }
                         })
