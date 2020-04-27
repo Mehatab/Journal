@@ -7,7 +7,7 @@
     <color name="textColorPrimary">#292635</color>
     <color name="textColorSecondary">#9792AA</color>
     <color name="note">#EF0754</color>
-
+    <color name="divider">#C4C4C4</color>
 
     <color name="markdown_syntax">#1F000000</color>
     <color name="markdown_blockquote_indentation_rule">@color/markdown_syntax</color>

@@ -1,14 +1,14 @@
 import org.gradle.api.JavaVersion
 
 object Config {
-    const val applicationId = "com.spendy"
-    const val minSdk = 21
-    const val compileSdk = 29
-    const val targetSdk = 29
+    val applicationId = "com.spendy"
+    val minSdk = 21
+    val compileSdk = 29
+    val targetSdk = 29
     val javaVersion = JavaVersion.VERSION_1_8
-    const val buildTools = "29.0.3"
-    const val versionCode = 9
-    const val versionName = "1.0.2"
+    val buildTools = "29.0.3"
+    val versionCode = 9
+    val versionName = "1.0.2"
 }
 
 object Versions {
@@ -23,7 +23,7 @@ object Versions {
     val dime = "1.0.6"
     val room = "2.1.0"
     val room_ktx = "2.2.3"
-    val nav_version = "2.2.1"
+    val nav_version = "2.2.0-beta01"
     val preference = "1.1.1"
     val vectorchildfinder = "1.0.0"
     val transition = "1.3.1"
@@ -31,7 +31,6 @@ object Versions {
 
 object Deps {
     //UI
-    val transition = "androidx.transition:transition:${Versions.transition}"
     val material = "com.google.android.material:material:${Versions.material}"
     val constraintlayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintlayout}"
 
@@ -60,5 +59,4 @@ object Deps {
     val navigation_ui = "androidx.navigation:navigation-ui-ktx:${Versions.nav_version}"
 
     val preference = "androidx.preference:preference:${Versions.preference}"
-    val vectorchildfinder = "com.github.devsideal:VectorChildFinder:${Versions.vectorchildfinder}"
 }

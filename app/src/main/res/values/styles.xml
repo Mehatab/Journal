@@ -6,6 +6,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
+        <item name="fontFamily">@font/app_font</item>
 
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
         <item name="android:textColorSecondary">@color/textColorSecondary</item>
@@ -21,6 +22,8 @@
         </item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.AppTheme.SmallComponent
         </item>
+
+        <item name="motionInterpolatorPersistent">@android:interpolator/fast_out_slow_in</item>
     </style>
 
     <style name="AppTheme" parent="Base.AppTheme">
@@ -91,6 +94,11 @@
         <item name="cornerSizeBottomRight">8%</item>
         <item name="cornerSizeBottomLeft">2%</item>
         <item name="cornerSizeTopLeft">2%</item>
+    </style>
+
+    <style name="Widget.AppTheme.ToolbarTitle" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
     </style>
 
 </resources>

@@ -48,6 +48,7 @@
                             android:layout_height="wrap_content"
                             app:layout_constraintTop_toTopOf="parent"
                             app:menu="@menu/notebook"
+                            app:titleTextAppearance="@style/Widget.AppTheme.ToolbarTitle"
                             app:navigationIcon="@drawable/ic_back"
                             app:title="@{viewModel.notebooks.title}" />
 
@@ -93,12 +94,13 @@
             </com.google.android.material.appbar.AppBarLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv"
+                android:id="@+id/notes_rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/_10sdp"
+                android:clipToPadding="false"
                 android:overScrollMode="never"
-                android:paddingTop="@dimen/_20sdp"
+                android:paddingVertical="@dimen/_20sdp"
+                android:paddingHorizontal="@dimen/_10sdp"
                 app:layoutManager="LinearLayoutManager"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 

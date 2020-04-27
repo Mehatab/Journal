@@ -64,7 +64,6 @@ dependencies {
     implementation Deps.navigation_ui
 
     implementation Deps.preference
-    implementation Deps.vectorchildfinder
 
     implementation Deps.room_runtime
     implementation Deps.room_ktx

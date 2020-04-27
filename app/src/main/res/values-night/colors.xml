@@ -6,6 +6,7 @@
     <color name="textColorPrimary">#DEDCE4</color>
     <color name="textColorSecondary">#A7A7A8</color>
     <color name="background">#000000</color>
+    <color name="divider">#C4C4C4</color>
 
 
     <color name="markdown_syntax">#1FFFFFFF</color>

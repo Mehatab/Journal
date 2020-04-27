@@ -1,8 +1,14 @@
 package com.journal.utils
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.view.animation.Interpolator
+import androidx.annotation.AttrRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.res.use
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
@@ -62,4 +68,16 @@ fun HomeFragment.editNote(note: NoteInfo, view: View) {
 fun HomeFragment.openNotebook(notebook: Notebook) {
     val action = HomeFragmentDirections.homeToNotebook(notebook.notebookId ?: 0)
     findNavController().navigate(action)
+}
+
+
+
+@SuppressLint("Recycle")
+fun Context.themeInterpolator(@AttrRes attr: Int): Interpolator {
+    return AnimationUtils.loadInterpolator(
+        this,
+        obtainStyledAttributes(intArrayOf(attr)).use {
+            it.getResourceId(0, android.R.interpolator.fast_out_slow_in)
+        }
+    )
 }

@@ -31,7 +31,7 @@
         android:transitionName="@{transitionName}"
         android:onClick="@{(v)-> listener.onClick(v, adapterPosition)}"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/_16sdp">
+        android:paddingBottom="@dimen/_18sdp">
 
         <View
             android:id="@+id/color_indicator"

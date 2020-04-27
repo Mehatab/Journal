@@ -19,6 +19,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     val notes = Transformations.switchMap(query) { noteDao.getNotes("%$it%") }
 
+    val fabVisibility = noteDao.hasNotebooks()
+
     fun getNotebook(position: Int) = notebooks.value?.get(position)
 
     fun getNote(position: Int): NoteInfo {

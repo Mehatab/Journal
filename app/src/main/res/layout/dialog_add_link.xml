@@ -22,8 +22,7 @@
         android:id="@+id/addlinkdialog_url"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_margin="16dp"
         android:hint="@string/composereply_addlink_url"
         android:inputType="textUri"
         tools:ignore="Autofill" />
@@ -39,19 +38,21 @@
 
         <Button
             android:id="@+id/addlinkdialog_cancel"
-            style="?attr/buttonBarNegativeButtonStyle"
+            style="?attr/buttonBarPositiveButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_10sdp"
-            android:background="@android:color/transparent"
+            android:textStyle="bold"
             android:text="@string/composereply_addlink_cancel"
-            android:textColor="@android:color/white" />
+            android:textColor="?attr/colorPrimary" />
 
         <Button
             android:id="@+id/addlinkdialog_insert"
             style="?attr/buttonBarPositiveButtonStyle"
             android:layout_width="wrap_content"
+            android:textStyle="bold"
             android:layout_height="wrap_content"
+            android:textColor="?attr/colorPrimary"
             android:text="@string/composereply_addlink_insert" />
 
     </LinearLayout>

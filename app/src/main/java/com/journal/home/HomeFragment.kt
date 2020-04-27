@@ -42,6 +42,11 @@ class HomeFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListener {
 
         viewModel.notebooks.observe(viewLifecycleOwner, Observer {
             notebookAdapter.setList(it)
+            binding.add.visibility = if (it.isNullOrEmpty()) View.GONE else View.VISIBLE
+        })
+
+        viewModel.fabVisibility.observe(viewLifecycleOwner, Observer {
+            binding.add.visibility = if (it) View.VISIBLE else View.GONE
         })
 
         viewModel.notes.observe(viewLifecycleOwner, Observer {

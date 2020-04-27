@@ -105,5 +105,8 @@ Lines starting with three asterisks (`*`), hyphens (`-`) or underscores (`_`) ar
 ### Quotes
 > A paragraph starting with a `>` are rendered as a quote."
     </string>
+
     <string name="fab_transition">FabTransition</string>
+    <string name="delete">Delete</string>
+    <string name="delete_notebook">Are you sure you want to delete %s</string>
 </resources>

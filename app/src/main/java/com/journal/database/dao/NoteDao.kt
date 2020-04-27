@@ -11,6 +11,9 @@ interface NoteDao {
     @Query("SELECT * from Notebook WHERE title LIKE :query")
     fun getNotebooks(query: String): LiveData<List<Notebook>>
 
+    @Query("SELECT COUNT(*) from Notebook")
+    fun hasNotebooks(): LiveData<Boolean>
+
     @Query("SELECT n.*, nb.color as color from Note n JOIN Notebook nb ON n.notebook_id = nb.notebook_id WHERE (n.note LIKE :query) ORDER BY n.notebook_id ASC")
     fun getNotes(query: String): LiveData<List<NoteInfo>>
 
@@ -37,7 +40,7 @@ interface NoteDao {
     @Query("SELECT * FROM Notebook where notebook_id =:id")
     fun getNotebook(id: Long?): LiveData<Notebook>
 
-    @Query("SELECT n.* from Note n where n.notebook_id =:id AND (n.note LIKE :q) ORDER BY CASE WHEN :isASCOrder THEN -n.note_id ELSE n.note_id END ASC")
+    @Query("SELECT n.* from Note n where n.notebook_id =:id AND (n.note LIKE :q) ORDER BY CASE WHEN :isASCOrder THEN -n.note_id ELSE n.note_id END DESC")
     fun getNotes(id: Long?, q: String?, isASCOrder: Boolean): LiveData<List<Note>>
 
 
@@ -46,4 +49,7 @@ interface NoteDao {
 
     @Update
     fun update(value: Note?)
+
+    @Query("DELETE FROM Notebook WHERE notebook_id =:notebookId")
+    suspend fun deleteNotebook(notebookId: Long)
 }

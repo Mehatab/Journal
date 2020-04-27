@@ -41,7 +41,7 @@
                 android:background="@null"
                 android:gravity="top"
                 android:text="@={viewModel.note.note}"
-                android:textSize="@dimen/_11ssp" />
+                android:textSize="@dimen/_12ssp" />
 
         </androidx.core.widget.NestedScrollView>
 

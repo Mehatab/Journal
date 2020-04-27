@@ -46,6 +46,7 @@
                             android:id="@+id/toolbar"
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"
+                            app:titleTextAppearance="@style/Widget.AppTheme.ToolbarTitle"
                             app:layout_constraintTop_toTopOf="parent"
                             app:menu="@menu/home"
                             app:title="@string/app_name" />
@@ -75,7 +76,7 @@
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="@id/notebooks"
                             app:srcCompat="@drawable/ic_plus"
-                            app:tint="?android:attr/textColorHint" />
+                            app:tint="?attr/colorControlNormal" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/books_rv"
@@ -96,8 +97,8 @@
                         android:id="@+id/toolbar_collapsed_target"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
-                        android:layout_marginVertical="@dimen/_10sdp"
                         android:layout_marginHorizontal="@dimen/_10sdp"
+                        android:layout_marginVertical="@dimen/_10sdp"
                         android:background="@android:color/transparent"
                         app:layout_collapseMode="pin" />
 
@@ -110,9 +111,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="@dimen/_10sdp"
-                android:overScrollMode="never"
-                android:paddingTop="@dimen/_20sdp"
                 android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:paddingVertical="@dimen/_30sdp"
                 app:layoutManager="LinearLayoutManager"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
@@ -141,9 +142,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10sdp"
+            android:transitionName="@string/fab_transition"
             app:backgroundTint="?colorAccent"
             app:fabSize="normal"
-            android:transitionName="@string/fab_transition"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:srcCompat="@drawable/ic_plus"
