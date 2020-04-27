@@ -37,7 +37,6 @@ class NotebookViewModel(application: Application) : AndroidViewModel(application
 
     val query = MutableLiveData<String>()
 
-    val notebook = ObservableField<Notebook>()
     val notebookId = MutableLiveData<Long>()
     val ascOrder = MutableLiveData(false)
 
@@ -49,7 +48,7 @@ class NotebookViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    val notebooks = Transformations.switchMap(notebookId) {
+    val notebook = Transformations.switchMap(notebookId) {
         noteDao.getNotebook(it)
     }
 

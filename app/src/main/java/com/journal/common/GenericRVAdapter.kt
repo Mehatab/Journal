@@ -37,6 +37,8 @@ class GenericRVAdapter<T : DiffItem>(
         this.itemsList = items
     }
 
+    fun getItem(position: Int) = itemsList[position]
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenericViewHolder<T> {
         val layoutInflater = inflater ?: LayoutInflater.from(parent.context)
         val binding =

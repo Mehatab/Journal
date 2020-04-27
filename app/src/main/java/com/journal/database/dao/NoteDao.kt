@@ -33,6 +33,9 @@ interface NoteDao {
     @Query("SELECT n.*, nb.color as color from Note n JOIN Notebook nb ON n.notebook_id = nb.notebook_id WHERE (n.note LIKE :query) ORDER BY n.notebook_id ASC")
     fun getNotes(query: String): LiveData<List<NoteInfo>>
 
+    @Query("SELECT n.* from Note n WHERE n.notebook_id = :notebookId")
+    fun getNotes(notebookId: Long): LiveData<List<Note>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(notebook: Notebook)
 

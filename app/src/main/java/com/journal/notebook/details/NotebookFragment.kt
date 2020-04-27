@@ -105,7 +105,7 @@ class NotebookFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListene
 
     private fun delete() {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle(getString(R.string.delete_notebook, viewModel.notebooks.value?.title ?: ""))
+            .setTitle(getString(R.string.delete_notebook, viewModel.notebook.value?.title ?: ""))
             .setNegativeButton(android.R.string.cancel) { dialog, _ ->
                 dialog.dismiss()
             }.setPositiveButton(android.R.string.yes) { dialog, _ ->

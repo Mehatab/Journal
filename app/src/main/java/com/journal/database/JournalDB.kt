@@ -66,6 +66,4 @@ abstract class JournalDB : RoomDatabase() {
             INSTANCE = null
         }
     }
-
-
 }
