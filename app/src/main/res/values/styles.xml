@@ -22,6 +22,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
+        <item name="android:fontFamily">@font/app_font</item>
         <item name="fontFamily">@font/app_font</item>
 
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
@@ -55,7 +56,7 @@
     </style>
 
     <style name="DankSeparator">
-        <item name="android:background">?android:textColorSecondary</item>
+        <item name="android:background">@color/divider</item>
     </style>
 
     <style name="DankSeparator.VerticalContent">
@@ -114,7 +115,7 @@
 
     <style name="Widget.AppTheme.ToolbarTitle" parent="Widget.MaterialComponents.Toolbar">
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:textSize">@dimen/_13ssp</item>
     </style>
 
 </resources>

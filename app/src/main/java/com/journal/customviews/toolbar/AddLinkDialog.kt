@@ -29,6 +29,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.journal.R
 
 class AddLinkDialog : DialogFragment() {
@@ -52,7 +53,8 @@ class AddLinkDialog : DialogFragment() {
 
         val dialogLayout =
             LayoutInflater.from(requireContext()).inflate(R.layout.dialog_add_link, null)
-        val dialog = AlertDialog.Builder(requireContext())
+
+        val dialog = MaterialAlertDialogBuilder(requireContext())
             .setView(dialogLayout)
             .create()
 

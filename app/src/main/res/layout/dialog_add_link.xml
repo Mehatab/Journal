@@ -26,7 +26,7 @@
         android:id="@+id/addlinkdialog_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_margin="@dimen/_10sdp"
         android:layout_marginEnd="16dp"
         android:hint="@string/composereply_addlink_title"
         android:imeOptions="actionNext"
@@ -38,7 +38,7 @@
         android:id="@+id/addlinkdialog_url"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
         android:hint="@string/composereply_addlink_url"
         android:inputType="textUri"
         tools:ignore="Autofill" />
