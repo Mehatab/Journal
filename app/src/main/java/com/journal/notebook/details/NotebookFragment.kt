@@ -1,5 +1,6 @@
 package com.journal.notebook.details
 
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,13 +16,13 @@ import com.journal.R
 import com.journal.common.GenericRVAdapter
 import com.journal.database.entities.Note
 import com.journal.databinding.FragmentNotebookBinding
-import com.journal.utils.NOTEBOOK_ID
-import com.journal.utils.TRANSITION_NAME
+import com.journal.utils.*
 
 class NotebookFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListener {
     private lateinit var binding: FragmentNotebookBinding
     private val viewModel by viewModels<NotebookViewModel>()
     private var adapter = GenericRVAdapter<Note>(R.layout.adapter_note_item, this)
+    private var scrollToTop = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,19 +32,16 @@ class NotebookFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListene
         }
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentNotebookBinding.inflate(inflater).also {
+        return FragmentNotebookBinding.inflate(inflater).also {
             it.lifecycleOwner = viewLifecycleOwner
-        }
-
-        binding.viewModel = viewModel
-
-        return binding.root
+            it.viewModel = viewModel
+            binding = it
+        }.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,14 +53,12 @@ class NotebookFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListene
 
         viewModel.notes.observe(viewLifecycleOwner, Observer {
             adapter.setList(it)
+            if (scrollToTop) binding.rv.scrollToPosition(0)
+            scrollToTop = false
         })
 
         binding.add.setOnClickListener {
-            val extras = FragmentNavigatorExtras(binding.add to binding.add.transitionName)
-            findNavController().navigate(R.id.action_notebook_to_editor, Bundle().apply {
-                putLong(NOTEBOOK_ID, viewModel.notebookId.value ?: 0)
-                putString(TRANSITION_NAME, binding.add.transitionName)
-            }, null, extras)
+            newNote(viewModel.notebookId.value ?: 0, binding.add)
         }
 
         binding.toolbar.setNavigationOnClickListener {
@@ -73,24 +69,17 @@ class NotebookFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListene
             return@setOnMenuItemClickListener onOptionsItemSelected(it.itemId)
         }
 
-        binding.sort.setOnClickListener {
-            viewModel.ascOrder.postValue(it.isSelected.not())
+        binding.sort.setOnClickListener { v ->
+            scrollToTop = true
+            v.rotate()
+            viewModel.ascOrder.postValue(v.isSelected.not())
         }
     }
 
     override fun onClick(view: View, position: Int) {
         when (view.id) {
             R.id.note_layout -> {
-                val note = viewModel.getNote(position)
-                val action = NotebookFragmentDirections.notebookToEditor(
-                    note.noteId ?: 0,
-                    note.notebookId ?: 0,
-                    view.transitionName
-                )
-                findNavController().navigate(
-                    action,
-                    FragmentNavigatorExtras(view to view.transitionName)
-                )
+                editNote(viewModel.getNote(position), view)
             }
         }
     }
@@ -98,9 +87,7 @@ class NotebookFragment : Fragment(), GenericRVAdapter.OnListItemViewClickListene
     private fun onOptionsItemSelected(itemId: Int): Boolean {
         return when (itemId) {
             R.id.edit -> {
-                val action =
-                    NotebookFragmentDirections.actionNotebookToEdit(viewModel.notebookId.value ?: 0)
-                findNavController().navigate(action)
+                editNoteBook(viewModel.notebookId.value ?: 0)
                 true
             }
             else -> false

@@ -65,6 +65,11 @@
         android:name="com.journal.notebook.details.NotebookFragment"
         tools:layout="@layout/fragment_notebook">
 
+        <argument
+            android:name="notebook_id"
+            android:defaultValue="-1L"
+            app:argType="long" />
+
         <action
             android:id="@+id/action_notebook_to_editor"
             app:destination="@id/editor" />
