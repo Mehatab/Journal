@@ -3,7 +3,7 @@
 
 ## Screenshots 
 
-<table style="width:100%">
+<table>
  <tr>
     <td><img src="screenshot/1.png" alt="Girl in a jacket" width="200" height="380"></td>
     <td><img src="screenshot/2.png" alt="Girl in a jacket" width="200" height="380"></td>
