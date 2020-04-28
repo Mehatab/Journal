@@ -3,6 +3,7 @@
 
 ## Screenshots 
 
+<div style="overflow-x:auto;">
 <table>
  <tr>
     <td><img src="screenshot/1.png" alt="Girl in a jacket" width="200" height="380"></td>
@@ -13,7 +14,7 @@
     <td><img src="screenshot/33.png" alt="Girl in a jacket" width="200" height="380"></td>    
   </tr>
 </table>
-
+</div>
 ## Maintainer
 Mehatab Shaikh <shaikh.mehatab@gmail.com>
 
