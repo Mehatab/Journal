@@ -1,6 +1,21 @@
 # Journal  (work-in-progress 👷🔧️)
 
 
+## Screenshots 
+
+<table style="width:100%">
+ <tr>
+    <td><img src="screenshot/1.png" alt="Girl in a jacket" width="500" height="600"></td>
+    <td><img src="screenshot/2.png" alt="Girl in a jacket" width="500" height="600"></td>
+    <td><img src="screenshot/3.png" alt="Girl in a jacket" width="500" height="600"></td>    
+  </tr>
+ <tr>
+    <td><img src="screenshot/11.png" alt="Girl in a jacket" width="500" height="600"></td>
+    <td><img src="screenshot/22.png" alt="Girl in a jacket" width="500" height="600"></td>
+    <td><img src="screenshot/33.png" alt="Girl in a jacket" width="500" height="600"></td>
+  </tr>
+</table>
+
 ## Maintainer
 Mehatab Shaikh <shaikh.mehatab@gmail.com>
 
